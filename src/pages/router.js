@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+import { createRouter, createWebHistory } from 'vue-router'
 import Operator from './Operator.vue'
 import Handle from './handle/Handle.vue'
 
@@ -24,8 +23,8 @@ const routes = [
     { path: '', redirect: "/operator/virtual" }
 ]
 
-const router = new VueRouter({
-    mode: 'history',
+const router = createRouter({
+    mode: createWebHistory(),
     routes: routes
 })
 

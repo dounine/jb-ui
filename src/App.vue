@@ -1,63 +1,82 @@
 <template>
   <el-container>
-    <!-- <el-header>Header</el-header> -->
+    <el-aside :width="sildeWidth">
+      <el-menu
+        :default-active="activeMenu"
+        class="el-menu-vertical"
+        @open="handleOpen"
+        @close="handleClose"
+        :collapse="isCollapse"
+      >
+        <el-menu-item index="0">
+          <i @click="collapseStatus" class="el-icon-menu"></i>
+        </el-menu-item>
+        <el-submenu index="operator">
+          <template v-slot:title>
+            <i class="el-icon-news"></i>
+            <span>导航一</span>
+          </template>
+
+          <router-link to="/operator/virtual"
+            ><el-menu-item index="operator-virtual"> virtual </el-menu-item>
+          </router-link>
+
+          <router-link to="/operator/hb">
+            <el-menu-item index="operator-hb"> hb </el-menu-item></router-link
+          >
+        </el-submenu>
+        <el-menu-item index="2" disabled>
+          <i class="el-icon-document"></i>
+          <span>导航二</span>
+        </el-menu-item>
+        <el-menu-item index="3">
+          <i class="el-icon-setting"></i>
+          <span>导航三</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
     <el-container>
-      <el-aside>
-        <el-menu
-          :default-active="activeMenu"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-        >
-          <el-submenu index="operator">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
-            </template>
-
-            <router-link to="/operator/virtual"
-              ><el-menu-item index="operator-virtual"> virtual </el-menu-item>
-            </router-link>
-
-            <router-link to="/operator/hb">
-              <el-menu-item index="operator-hb"> hb </el-menu-item></router-link
-            >
-          </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
-      <el-container>
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-        <!-- <el-footer>Footer</el-footer> -->
-      </el-container>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </el-container>
 </template>
 
 <script>
+// import HelloWorld from "./components/HelloWorld.vue";
+
+// export default {
+//   name: "App",
+//   components: {
+//     HelloWorld,
+//   },
+// };
 export default {
+  data() {
+    return {
+      isCollapse: false,
+    };
+  },
+  computed: {
+    activeMenu() {
+      return this.$route.path.split("/")[1] + "-" + this.$route.path.split("/")[2];
+    },
+    sildeWidth() {
+      return this.isCollapse ? "auto" : "300px";
+    },
+  },
   methods: {
-    startHacking() {
-      this.$notify({
-        title: "It works!",
-        type: "success",
-        message:
-          "We've laid the ground work for you. It's time for you to build something epic!",
-        duration: 5000,
-      });
+    handleOpen(key, keyPath) {
+      console.log(this);
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    collapseStatus() {
+      this.isCollapse = !this.isCollapse;
     },
   },
 };
@@ -66,7 +85,7 @@ export default {
 <style>
 #app {
   font-family: Helvetica, sans-serif;
-  text-align: center;
+  height: 100%;
 }
 html,
 body,
@@ -116,22 +135,3 @@ a {
   color: #9cf;
 }
 </style>
-<script>
-export default {
-  computed: {
-    activeMenu() {
-      return (
-        this.$route.path.split("/")[1] + "-" + this.$route.path.split("/")[2]
-      );
-    },
-  },
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-  },
-};
-</script>
