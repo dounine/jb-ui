@@ -4,11 +4,12 @@
       <el-menu
         :default-active="activeMenu"
         class="el-menu-vertical"
+        router
         @open="handleOpen"
         @close="handleClose"
         :collapse="isCollapse"
       >
-        <el-menu-item index="0">
+        <el-menu-item >
           <i @click="collapseStatus" class="el-icon-menu"></i>
         </el-menu-item>
         <el-submenu index="operator">
@@ -17,13 +18,9 @@
             <span>导航一</span>
           </template>
 
-          <router-link to="/operator/virtual"
-            ><el-menu-item index="operator-virtual"> virtual </el-menu-item>
-          </router-link>
+          <el-menu-item index="/operator/virtual"> virtual </el-menu-item>
 
-          <router-link to="/operator/huobi">
-            <el-menu-item index="operator-huobi"> huobi </el-menu-item></router-link
-          >
+          <el-menu-item index="/operator/huobi"> huobi </el-menu-item>
         </el-submenu>
         <el-menu-item index="2" disabled>
           <i class="el-icon-document"></i>
@@ -37,7 +34,7 @@
     </el-aside>
     <el-container>
       <el-main>
-        <router-view :key="$route.path"/>
+        <router-view :key="$route.path" />
       </el-main>
       <!-- <el-footer>Footer</el-footer> -->
     </el-container>
@@ -61,7 +58,7 @@ export default {
   },
   computed: {
     activeMenu() {
-      return this.$route.path.split("/")[1] + "-" + this.$route.params.platform;
+      return "/" + this.$route.path.split("/")[1] + "/" + this.$route.params.platform;
     },
     sildeWidth() {
       return this.isCollapse ? "auto" : "300px";
