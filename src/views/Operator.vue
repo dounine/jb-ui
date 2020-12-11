@@ -47,7 +47,7 @@
               <el-col :span="4">
                 <router-link
                   :to="
-                    '/operator/' + platform + '/' + item.name + '/quarter/buy/open'
+                    '/operator/' + platform + '/' + item.name
                   "
                   ><el-button icon="el-icon-s-operation" circle></el-button
                 ></router-link>

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
 import Operator from '../views/Operator.vue'
+import Handler from '../views/handle/Handler.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -19,17 +19,13 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/operator/:platform',
+    name: 'Operator',
     component: Operator,
     children: [
       {
-        path: '/operator/:platform/:symbol',
-        component: Operator,
-        // children: [
-        //     {
-        //         path: '/operator/:platform/:symbol/:contractType/:direction/:offset',
-        //         component: Handle
-        //     }
-        // ]
+        path: ':symbol',
+        name: 'Handler',
+        component: Handler
       }
     ]
   },
@@ -37,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
 })
 
