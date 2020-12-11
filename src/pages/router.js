@@ -1,7 +1,6 @@
-import Vue from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import Operator from './Operator.vue'
-import Handle from './handle/Handle.vue'
+import Handler from './handler/Handler.vue'
 
 const routes = [
     {
@@ -9,14 +8,8 @@ const routes = [
         component: Operator,
         children: [
             {
-                path: '/operator/:platform/:symbol',
-                component: Operator,
-                children: [
-                    {
-                        path: '/operator/:platform/:symbol/:contractType/:direction/:offset',
-                        component: Handle
-                    }
-                ]
+                path: 'BTC/quarter/buy/open',
+                component: Handler,
             }
         ]
     },
@@ -25,7 +18,7 @@ const routes = [
 
 const router = createRouter({
     mode: createWebHistory(),
-    routes: routes
+    routes
 })
 
 export default router

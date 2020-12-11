@@ -56,7 +56,7 @@ const Mock = (app) => {
             data: [
                 {
                     key: '1',
-                    name: 'btc',
+                    name: 'BTC',
                     status: 'enable',
                     directions: ['buy', 'sell'],
                     contractTypes: ['quarter', 'next_quarter', 'this_week', 'next_week']

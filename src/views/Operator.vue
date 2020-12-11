@@ -45,7 +45,13 @@
           <el-col :span="12">
             <el-row justify="end" type="flex">
               <el-col :span="4">
-                <el-button icon="el-icon-s-operation" circle></el-button>
+                <router-link
+                  :to="
+                    '/operator/' + platform + '/' + item.name + '/quarter/buy/open'
+                  "
+                  ><el-button icon="el-icon-s-operation" circle></el-button
+                ></router-link>
+                <!-- <router-link to="/operator/virtual"><el-button icon="el-icon-s-operation" circle></el-button></router-link> -->
               </el-col>
             </el-row>
           </el-col>
@@ -96,16 +102,23 @@ export default {
   created() {
     this.queryPositions();
   },
+  computed: {
+    platform() {
+      return this.$route.params.platform;
+    },
+  },
   methods: {
     queryPositions() {
-      this.$axios.get("/position/virtual/list").then((response) => {
-        this.positions = response.data.data.map((item) => {
-          return {
-            ...item,
-            icon: require(`../assets/images/${item.name}.svg`),
-          };
+      this.$axios
+        .get(`/position/${this.$route.params.platform}/list`)
+        .then((response) => {
+          this.positions = response.data.data.map((item) => {
+            return {
+              ...item,
+              icon: require(`../assets/images/${item.name}.svg`),
+            };
+          });
         });
-      });
     },
     handleEdit(index, row) {
       console.log(index, row);

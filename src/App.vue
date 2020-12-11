@@ -21,8 +21,8 @@
             ><el-menu-item index="operator-virtual"> virtual </el-menu-item>
           </router-link>
 
-          <router-link to="/operator/hb">
-            <el-menu-item index="operator-hb"> hb </el-menu-item></router-link
+          <router-link to="/operator/huobi">
+            <el-menu-item index="operator-huobi"> huobi </el-menu-item></router-link
           >
         </el-submenu>
         <el-menu-item index="2" disabled>
@@ -37,7 +37,7 @@
     </el-aside>
     <el-container>
       <el-main>
-        <router-view></router-view>
+        <router-view :key="$route.path"/>
       </el-main>
       <!-- <el-footer>Footer</el-footer> -->
     </el-container>
@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     activeMenu() {
-      return this.$route.path.split("/")[1] + "-" + this.$route.path.split("/")[2];
+      return this.$route.path.split("/")[1] + "-" + this.$route.params.platform;
     },
     sildeWidth() {
       return this.isCollapse ? "auto" : "300px";
