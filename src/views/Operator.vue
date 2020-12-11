@@ -1,5 +1,6 @@
 <template>
-  <div class="operator-box">
+  <router-view :key="$route.path" />
+  <div class="operator-box" v-if="render">
     <div class="operator-title">
       <span class="operator-title-name">Operator list</span>
     </div>
@@ -45,10 +46,7 @@
           <el-col :span="12">
             <el-row justify="end" type="flex">
               <el-col :span="4">
-                <router-link
-                  :to="
-                    '/operator/' + platform + '/' + item.name
-                  "
+                <router-link :to="`/operator/${platform}/${item.name}/quarter/buy/open`"
                   ><el-button icon="el-icon-s-operation" circle></el-button
                 ></router-link>
                 <!-- <router-link to="/operator/virtual"><el-button icon="el-icon-s-operation" circle></el-button></router-link> -->
@@ -105,6 +103,9 @@ export default {
   computed: {
     platform() {
       return this.$route.params.platform;
+    },
+    render() {
+      return this.$route.params.symbol == undefined;
     },
   },
   methods: {

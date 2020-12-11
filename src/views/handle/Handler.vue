@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-radio-group v-model="contractType">
+    <el-radio-group v-model="contractType" @change="switchContractType">
       <el-radio-button label="quarter"></el-radio-button>
       <el-radio-button label="next_quarter"></el-radio-button>
       <el-radio-button label="this_week"></el-radio-button>
@@ -12,13 +12,21 @@
 export default {
   data() {
     return {
+      contractType: this.$route.params.contractType || "quarter",
       symbolInfo: {},
     };
   },
+  created() {
+    // this.initContractType();
+  },
   methods: {
-    contractType() {
-      //return this.$route.path.split("/")[1] + "-" + this.$route.path.split("/")[2];
-      return "quarter";
+    switchContractType(contractType) {
+      this.contractType = contractType;
+      const params = this.$route.params;
+      this.$router.push({path:`/operator/${params.platform}/${params.symbol}/${contractType}/${params.direction}/${params.offset}`})
+    },
+    initContractType() {
+      this.contractType = this.$route.params.contractType || "quarter";
     },
     queryPositions() {
       this.$axios.get("/position/virtual/list").then((response) => {
